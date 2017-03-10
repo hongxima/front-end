@@ -29,7 +29,6 @@ else {
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(helpers.errorHandler);
 app.use(helpers.sessionMiddleware);
 app.use(morgan("dev", {}));
 
@@ -49,6 +48,8 @@ app.use(cart);
 app.use(catalogue);
 app.use(orders);
 app.use(user);
+
+app.use(helpers.errorHandler);
 
 var server = app.listen(process.env.PORT || 8079, function () {
   var port = server.address().port;
