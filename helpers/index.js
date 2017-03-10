@@ -2,7 +2,6 @@
   'use strict';
 
   var request = require("request");
-  var client  = require('prom-client');
   var helpers = {};
 
   /* Public: errorHandler is a middleware that handles your errors
@@ -13,9 +12,6 @@
    * app.use(helpers.errorHandler);
    * */
 
-  var gauge = new client.Gauge('nodejs_errors_total', 'This is a counter of all the exceptions handled.');
-  gauge.set(0);
-
   helpers.errorHandler = function(err, req, res, next) {
     var ret = {
       message: err.message,
@@ -24,7 +20,6 @@
     res.
       status(err.status || 500).
       send(ret);
-    gauge.inc();
   };
 
   helpers.sessionMiddleware = function(err, req, res, next) {
