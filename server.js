@@ -6,18 +6,17 @@ var request      = require("request")
   , async        = require("async")
   , cookieParser = require("cookie-parser")
   , session      = require("express-session")
-  , epimetheus   = require("epimetheus")
   , config       = require("./config")
   , helpers      = require("./helpers")
   , cart         = require("./api/cart")
   , catalogue    = require("./api/catalogue")
   , orders       = require("./api/orders")
   , user         = require("./api/user")
+  , metrics      = require("./api/metrics")
   , app          = express()
 
-epimetheus.instrument(app);
-
 app.use(express.static("public"));
+app.use(metrics);
 if(process.env.SESSION_REDIS) {
     console.log('Using the redis based session manager');
     app.use(session(config.session_redis));
